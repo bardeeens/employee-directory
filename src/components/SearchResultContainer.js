@@ -2,41 +2,37 @@ import React, { Component } from "react";
 // import SearchForm from "./SearchForm";
 // import ResultList from "./ResultList";
 import API from "../utils/API";
+import Employee from "./employee";
 
 class SearchResultContainer extends Component {
   state = {
-    firstName: "",
-    lastName: "",
-
+    result: [],
+    filtered: []
   };
 
   // When this component mounts, search the Giphy API for pictures of kittens
   componentDidMount() {
-    this.searchAPI("results=1000");
+    this.searchAPI("results=20");
   }
 
   searchAPI = query => {
     API.search(query)
-      .then(res => {
-        // console.log("First Name:", res.data.results[1].name.first);
-        // console.log("Last Name:", res.data.results[1].name.last);
-        // console.log("Photo:", res.data.results[1].picture.thumbnail);
-        console.log("City:", res.data.results[1].location.city);
-        console.log("State:", res.data.results[1].location.state);
-        console.log("Country:", res.data.results[1].location.country);
-        console.log(res.data.results[1]);
-        this.setState({ results: res.data.data })
+      .then(({ data }) => {
+        this.setState({
+          result: data.results,
+          filtered: data.results
+        })
       })
       .catch(err => console.log(err));
   };
 
-  handleInputChange = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    this.setState({
-      [name]: value
-    });
-  };
+  // handleInputChange = event => {
+  //   const name = event.target.name;
+  //   const value = event.target.value;
+  //   this.setState({
+  //     [name]: value
+  //   });
+  // };
 
   // When the form is submitted, search the Giphy API for `this.state.search`
   handleFormSubmit = event => {
@@ -46,9 +42,14 @@ class SearchResultContainer extends Component {
 
   render() {
     return (
-      <div className="container">
-        {}
-      </div>
+      
+      <>
+        { this.state.filtered.map((item) => {
+          console.log(item);
+          return <Employee first={item.name.first} last={item.name.last} photo={item.picture.thumbnail} />
+        })}
+        
+      </>
     );
   }
 }
