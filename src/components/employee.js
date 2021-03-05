@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import './App.css';
+import '../utils/css/Employee.css';
 // import SearchResultContainer from './components/SearchResultContainer';
 
 function Employee(props) {
@@ -7,10 +7,11 @@ function Employee(props) {
     
      
       <div className="row">
-        <div className="col"><img src={props.photo} /></div>
-        <div className="col">{props.first} {props.last}</div>
-        <div className="col">{props.email}</div>
-        <div className="col">{props.location}</div>
+        <div className="col border"><img src={props.photo} /><br/>
+        {props.first} {props.last}
+        </div>
+        <div className="col border">{props.email}<br/>{props.phone}</div>
+        <div className="col border">{props.state},<br/> {props.country} </div>
       </div>
       
     

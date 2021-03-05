@@ -2,14 +2,17 @@ import React, { Component } from "react";
 // import SearchForm from "./SearchForm";
 // import ResultList from "./ResultList";
 import API from "../utils/API";
-import Employee from "./employee";
+import Employee from "./Employee";
+
+
 
 class SearchResultContainer extends Component {
+  
   state = {
     result: [],
     filtered: []
   };
-
+ 
   // When this component mounts, search the Giphy API for pictures of kittens
   componentDidMount() {
     this.searchAPI("results=20");
@@ -35,18 +38,19 @@ class SearchResultContainer extends Component {
   // };
 
   // When the form is submitted, search the Giphy API for `this.state.search`
-  handleFormSubmit = event => {
-    event.preventDefault();
-    this.searchGiphy(this.state.search);
-  };
+  
+  country() {
+    
+  }
 
   render() {
     return (
-      
+     
       <>
-        { this.state.filtered.map((item) => {
-          console.log(item);
-          return <Employee first={item.name.first} last={item.name.last} photo={item.picture.thumbnail} />
+        { 
+         this.state.filtered.map((item) => {
+          // console.log(item);
+          return <Employee first={item.name.first} last={item.name.last} photo={item.picture.thumbnail} state={item.location.state} country={item.location.country} email={item.email} phone={item.phone} />
         })}
         
       </>
